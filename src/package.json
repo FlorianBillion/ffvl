@@ -1,0 +1,21 @@
+{
+  "name": "ffvl",
+  "version": "1.0.0",
+  "description": "application for ffvl",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Plessy Pierre",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "body-parser": "^1.18.2",
+    "dotenv": "^5.0.0",
+    "express": "^4.16.2",
+    "fs": "0.0.1-security",
+    "http": "0.0.0",
+    "mongoose": "^5.0.7",
+    "mysql": "^2.15.0"
+  }
+}

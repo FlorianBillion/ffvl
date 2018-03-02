@@ -1,0 +1,55 @@
+version: '3'
+
+services:
+  mysql-master:
+    image: 'library/mysql:5.7'
+    container_name: "mysql-master"
+    restart: always
+    expose:
+      - '3306'
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=repluser
+      - MYSQL_PASSWORD=root
+    volumes:
+      - ./conf/master:/etc/mysql/conf.d/
+  mysql-slave:
+    image: 'library/mysql:5.7'
+    container_name: "mysql-slave"
+    restart: always
+    expose:
+      - '3307'
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=repluser
+      - MYSQL_PASSWORD=root
+    volumes:
+      - ./conf/slave:/etc/mysql/conf.d/
+  mongo-master:
+    image: 'mongo:latest'
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip", "0.0.0.0", "--replSet", "clusterMongo", "--port", "27017"]
+    container_name: "mongo-master"
+    restart: always
+    expose: 
+      - "27017"
+    volumes:
+      - ./script:/script
+  mongo-slave1:
+    image: 'mongo:latest'
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip", "0.0.0.0", "--replSet", "clusterMongo", "--port", "27018"]
+    container_name: "mongo-slave1"
+    restart: always
+    expose:
+      - "27018"
+  mongo-slave2:
+    image: 'mongo:latest'
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip", "0.0.0.0", "--replSet", "clusterMongo", "--port", "27019"]
+    container_name: "mongo-slave2"
+    restart: always
+    expose:
+      - "27019"
+  api:
+    build: .
+    container_name: "api"
+    expose:
+     - "8080"
