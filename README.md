@@ -2,8 +2,10 @@
 
 Utilisation de l'api.
 Obtention température via :
+
     Longitude et latitude :
     - get http://localhost:3000/api/weather/46&25
+    { }
 
     Nom de sites :
     - post http://localhost:3000/api/weather/name
